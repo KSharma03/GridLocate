@@ -1,0 +1,172 @@
+package com.main.pack;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.border.Border;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.thoughtworks.selenium.Selenium;
+
+public class GridLocateMainClass extends JFrame{
+
+	public static WebDriver driver;
+	
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		BrowserChoice browserSelected = new BrowserChoice();
+		String choiceBrowser = browserSelected.browserGUI();
+		System.out.println("Browser Choosen By You: " + choiceBrowser);
+		
+		if(choiceBrowser.equalsIgnoreCase("Chrome")){
+    		System.out.println("Setting Chrome Properties");
+    		System.out.println("Setting chrome driver property!!");    
+    		//System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
+    		System.setProperty("webdriver.chrome.driver", "C:\\Users\\kapil.2.sharma\\Desktop\\My Idhar Udhar Ka Work\\Selenium Scratch\\chromedriver.exe");
+    		System.out.println("Initializing chrome driver");
+    		driver = new ChromeDriver();
+    }
+		else if(choiceBrowser.equalsIgnoreCase("Firefox")){
+			System.out.println("Setting Firefox Properties");
+    		System.out.println("Setting Firefox driver property!!");    
+    		System.setProperty("webdriver.firefox.bin", "C:\\Users\\kapil.2.sharma\\AppData\\Local\\Mozilla Firefox\\firefox.exe");
+    		System.out.println("Initializing firefox driver");
+    		driver = new FirefoxDriver();
+		}
+		
+		gridLocateSignInWithGoogle();
+		addDeviceOrCheckHistoryGridLocate();
+				
+	}
+	
+	private static void gridLocateSignInWithGoogle(){
+		System.out.println("Implicit Wait");
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        //driver.get("http://www.google.com");
+        
+        System.out.println("Navigating to Gridlocate URL!");
+        driver.navigate().to("https://gridlocate.com/");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        
+        System.out.println("Maximizing browser window!!");
+        driver.manage().window().maximize();
+        
+        System.out.println("Going to Click on Sign In With Google!!");
+        driver.findElement(By.xpath("//a[contains(@href,'/frameworks/opauth/google')]")).click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        
+        String bodyText = driver.findElement(By.tagName("body")).getText();
+		if(bodyText.contains("Add account")){
+			driver.findElement(By.id("account-chooser-add-account")).click();
+			
+		}
+		else{
+			 //Due to oauth authentication, you need to register first time with OTP, from next time on, this script will work fine
+	        System.out.println("Going to Enter Google Email ID!!!");
+	        driver.findElement(By.id("Email")).sendKeys("er.kapilsharma46@gmail.com");
+	        //driver.findElement(By.id("Email")).sendKeys("sharma.avinash2289@gmail.com");
+	        
+	        System.out.println("Click on Next Button!!");
+	        driver.findElement(By.id("next")).click();
+	        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+	        
+	        System.out.println("Enter Google Account Password!!");
+	        driver.findElement(By.id("Passwd")).sendKeys("$!ifili2011!$");
+	        
+	        System.out.println("Clicked on Sign In Button");
+	        driver.findElement(By.id("signIn")).click();
+	        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+	        
+	        /*System.out.println("Inserting Device ID!!");
+	        driver.findElement(By.id("deviceid")).sendKeys("9YEXLQAB");
+	        
+	        System.out.println("Inserting Unique Code!!");
+	        driver.findElement(By.id("devicepin")).sendKeys("E7LUUL");
+	        
+	        System.out.println("Click on Add Device Button!!");
+	        driver.findElement(By.id("add-device-submit")).click();*/
+			
+		}
+	}
+	
+	private static void addDeviceOrCheckHistoryGridLocate()
+	{
+		System.out.println("Adding Device!!!");
+		
+		YourChoice choiceObject = new YourChoice();
+		
+		String addDeviceChoice = choiceObject.choiceGUI();
+		
+		if(addDeviceChoice.equalsIgnoreCase("Add Device")){
+			
+			int numberOfDevices = 1;
+		
+			while(numberOfDevices > 0){
+				String bodyText = driver.findElement(By.tagName("body")).getText();
+				System.out.println(bodyText);
+				if(bodyText.contains("Let's add a device..")){
+					System.out.println("No device associated with email scenario!!!");
+				
+					System.out.println("Inserting Device ID!!");
+					driver.findElement(By.id("deviceid")).sendKeys("9YEXLQAB");
+	        
+					System.out.println("Inserting Unique Code!!");
+					driver.findElement(By.id("devicepin")).sendKeys("E7LUUL");
+	        
+					System.out.println("Click on Add Device Button!!");
+					driver.findElement(By.id("add-device-submit")).click();
+				}
+				else
+				{
+					System.out.println("At least one device associated scenario");
+					driver.findElement(By.xpath("//a[contains(@href,'/devices/adddevice')]")).click();
+				
+					System.out.println("Inserting Device ID!!");
+					driver.findElement(By.id("deviceid")).sendKeys("9YEXLQAB");
+	        
+					System.out.println("Inserting Unique Code!!");
+					driver.findElement(By.id("devicepin")).sendKeys("E7LUUL");
+	        
+					System.out.println("Click on Add Device Button!!");
+					driver.findElement(By.id("add-device-submit")).click();
+			
+				}
+				numberOfDevices--;
+			}
+		}
+		else if(addDeviceChoice.equalsIgnoreCase("Device History")){
+			System.out.println("Clicking on My Devices!!");
+			driver.findElement(By.xpath("//a[contains(@href,'/devices')]")).click();
+			
+			/*int rowCount = driver.findElements(By.xpath("//table[@id='DataTable']/tbody/tr")).size();
+			System.out.println("Number of Devices Added: " + rowCount);*/
+			
+			int iRowCount;
+			List<WebElement> iRows = driver.findElements(By.xpath("/html/body/div[4]/div/div/div/div[1]/div/div[2]/table/tbody/tr"));
+			iRowCount = iRows.size();
+			System.out.println("Number of Devices Added: " + iRowCount);
+			
+		}
+		
+	}
+	
+	}
