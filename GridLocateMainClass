@@ -82,7 +82,7 @@ public class GridLocateMainClass extends JFrame{
 		else{
 			 //Due to oauth authentication, you need to register first time with OTP, from next time on, this script will work fine
 	        System.out.println("Going to Enter Google Email ID!!!");
-	        driver.findElement(By.id("Email")).sendKeys("er.kapilsharma46@gmail.com");
+	        driver.findElement(By.id("Email")).sendKeys("Your email ID");
 	        //driver.findElement(By.id("Email")).sendKeys("sharma.avinash2289@gmail.com");
 	        
 	        System.out.println("Click on Next Button!!");
@@ -90,7 +90,7 @@ public class GridLocateMainClass extends JFrame{
 	        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	        
 	        System.out.println("Enter Google Account Password!!");
-	        driver.findElement(By.id("Passwd")).sendKeys("$!ifili2011!$");
+	        driver.findElement(By.id("Passwd")).sendKeys("Your Password");
 	        
 	        System.out.println("Clicked on Sign In Button");
 	        driver.findElement(By.id("signIn")).click();
