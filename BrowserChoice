@@ -1,0 +1,211 @@
+package com.main.pack;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.border.Border;
+
+
+public class BrowserChoice extends JFrame{
+	
+	AbstractButton chromeRadio = new JRadioButton("Chrome");
+	AbstractButton firefoxRadio = new JRadioButton("Firefox");
+	AbstractButton safariRadio = new JRadioButton("Safari");
+	JFrame frame = new JFrame("Grid Locate Browser Selection");//Make a frame
+
+	String browserSelected;
+	Boolean choiceMade = false;
+	int state = 1;
+	
+	protected String browserGUI(){
+	
+		
+		//JFrame frame = new JFrame("Grid Locate Browser Selection");//Make a frame
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//Make it go away on close
+		
+		JPanel panel = new JPanel(new GridLayout(0, 1));
+		
+		Border border = BorderFactory.createTitledBorder("Browsers");
+	    panel.setBorder(border);
+		
+	    ButtonGroup group = new ButtonGroup();
+	    
+	    panel.add(chromeRadio);
+	    group.add(chromeRadio);
+	    
+	    
+	    panel.add(firefoxRadio);
+	    group.add(firefoxRadio);
+	    
+	    
+	    panel.add(safariRadio);
+	    group.add(safariRadio);
+	    		
+	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    frame.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
+	    Container contentPane = frame.getContentPane();
+	    contentPane.add(panel, BorderLayout.CENTER);
+	    frame.setSize(300, 200);
+	    frame.setVisible(true);
+	    
+	    //frame.setSize(300, 300);//Give it a size
+	    
+	    
+	    //JPanel panel = new JPanel();//Make a panel
+	    //frame.add(panel);//Add it to your frame
+
+	    //JLabel label = new JLabel("Select Browser!");//Make a label
+	    //panel.add(label);//Add it to the panel (which is on the frame)
+
+	    //JRadioButton male = new JRadioButton("male");
+	    //JRadioButton female = new JRadioButton("Female");
+	    //ButtonGroup bG = new ButtonGroup();
+	    //bG.add(male);
+	    //bG.add(female);
+	     
+	    //frame.setVisible(true);//Show the frame
+	    //System.out.println("Chrome: " + chromeRadio.isSelected() + "Firefox: " + firefoxRadio.isSelected() + "Safari: " + safariRadio.isSelected() );
+	    /*while(choiceMade == false || chromeRadio.isSelected() == false || firefoxRadio.isSelected() == false || safariRadio.isSelected() == false){
+	    chromeRadio.addActionListener(new ActionListener() {
+	    	
+	    	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//System.out.println(" Chrome State" + getState());
+				//System.out.println("Chrome Label Value: "+ chromeRadio.getText());
+				//browserSelected = chromeRadio.getText().toString();
+				//choiceMade = true;
+				//counter++;
+
+				//return chromeRadio.getText().toString();
+				switch(getState()){
+				case 0:
+					browserSelected = chromeRadio.getText().toString();
+					break;
+				}
+					
+				
+			}
+		});
+	    
+	    firefoxRadio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(" Firefox State" + getState());
+				// TODO Auto-generated method stub
+				//System.out.println(firefoxRadio.getText());
+				//browserSelected = firefoxRadio.getText().toString();
+				//choiceMade = true;
+				//counter++;
+				frame.dispose();
+			}
+		});
+	    
+	    safariRadio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println(" Safari State" + getState());
+				//System.out.println(safariRadio.getText());
+				//browserSelected = safariRadio.getText().toString();
+				//choiceMade = true;
+				//counter++;
+				frame.dispose();
+			}
+		});
+	    
+	    //System.out.println("Chrome After listening: " + chromeRadio.isSelected());
+	    if(chromeRadio.isSelected() == true){
+	    	break;
+	    }
+	    }
+	    return browserSelected;		
+	}
+	
+	public String actionPerformed() throws InterruptedException{
+		
+		chromeRadio.addActionListener(new ActionListener() {
+	    	
+	    	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				System.out.println(chromeRadio.getText());
+				browserSelected = chromeRadio.getText().toString();
+				//return chromeRadio.getText().toString();
+				frame.dispose();
+				
+				
+			}
+		});
+	    
+	    firefoxRadio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println(firefoxRadio.getText());
+				browserSelected = firefoxRadio.getText().toString();
+				frame.dispose();
+			}
+		});
+	    
+	    safariRadio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println(safariRadio.getText());
+				browserSelected = safariRadio.getText().toString();
+				frame.dispose();
+			}
+		});*/
+	    
+	    while(choiceMade == false){
+	    	if(chromeRadio.isSelected() == true){
+	    		browserSelected = chromeRadio.getText().toString();
+	    		choiceMade = true;
+	    		frame.dispose();
+	    	}
+	    	
+	    	if(firefoxRadio.isSelected() == true){
+	    		browserSelected = firefoxRadio.getText().toString();
+	    		choiceMade = true;
+	    		frame.dispose();
+	    	}
+	    	
+	    	if(safariRadio.isSelected() == true){
+	    		browserSelected = safariRadio.getText().toString();
+	    		choiceMade = true;
+	    		frame.dispose();
+	    	}
+	    	
+	    }
+	    
+	       return browserSelected;
+	   	}	
+	
+}
