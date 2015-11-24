@@ -1,0 +1,84 @@
+package com.main.pack;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.border.Border;
+
+
+public class YourChoice extends JFrame{
+	
+	AbstractButton deviceRadio = new JRadioButton("Add Device");
+	AbstractButton historyRadio = new JRadioButton("Device History");
+	JFrame frame = new JFrame("Make Your Choice");//Make a frame
+
+	String selectionMade ;
+	Boolean choiceMade = false;
+	int state = 1;
+	
+	protected String choiceGUI(){
+	
+		
+		//JFrame frame = new JFrame("Grid Locate Browser Selection");//Make a frame
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//Make it go away on close
+		
+		JPanel panel = new JPanel(new GridLayout(0, 1));
+		
+		Border border = BorderFactory.createTitledBorder("Browsers");
+	    panel.setBorder(border);
+		
+	    ButtonGroup group = new ButtonGroup();
+	    
+	    panel.add(deviceRadio );
+	    group.add(deviceRadio );
+	    
+	    
+	    panel.add(historyRadio);
+	    group.add(historyRadio);
+	    
+	    
+	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    frame.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
+	    Container contentPane = frame.getContentPane();
+	    contentPane.add(panel, BorderLayout.CENTER);
+	    frame.setSize(300, 200);
+	    frame.setVisible(true);
+	    
+	   while(choiceMade == false){
+	    	if(deviceRadio.isSelected() == true){
+	    		selectionMade = deviceRadio.getText().toString();
+	    		choiceMade = true;
+	    		frame.dispose();
+	    	}
+	    	
+	    	if(historyRadio.isSelected() == true){
+	    		selectionMade = historyRadio.getText().toString();
+	    		choiceMade = true;
+	    		frame.dispose();
+	    	}
+	    	    	
+	    }
+	    
+	       return selectionMade;
+	   	}	
+	
+}
